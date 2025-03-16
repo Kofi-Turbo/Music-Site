@@ -35,7 +35,7 @@ body {
 
 /* 🎯 Headings */
 h1 {
-  font-size: 2.5rem;
+  font-size: 5vw; /* Makes the font size responsive to screen size */
   font-weight: 700;
   color: var(--accent-color);
   text-transform: uppercase;
@@ -62,23 +62,93 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  position: relative; /* Ensures absolute children position relative to navbar */
+  z-index: 1000; /* Keeps navbar above other elements */
+  width: 100%;
 }
 
 .navbar h1 {
+  font-size: 3vw; /* Adjust for smaller screens */
+  margin: 0;
+  padding-left: 10px; /* Add some padding to avoid it being too close to the left edge */
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 2.5rem; /* Make sure it's large enough */
+  background: none;
+  border: none;
   color: var(--accent-color);
-  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 1100; /* Ensures the button is above other content */
+  padding: 5px 10px; /* Adds space around the button for easier clicking */
 }
 
-.navbar a {
+/* 📱 Desktop Menu */
+.nav-links {
+  display: flex;
+  justify-content: space-around; /* Adds space between the links */
+  align-items: center;
+  width: 100%; /* Ensures the links take up the full width of the navbar */
+}
+
+.nav-links a {
+  padding: 10px 15px; /* Adds padding for better spacing */
   color: var(--text-color);
-  margin: 0 15px;
-  font-size: 1.1rem;
-  transition: all 0.3s ease-in-out;
+  font-size: 1rem; /* Adjusts font size */
+  transition: color 0.3s ease;
 }
 
-.navbar a:hover {
-  color: var(--hover-color);
-  transform: translateY(-2px);
+.nav-links a:hover {
+  color: var(--accent-color); /* Changes color on hover */
+}
+
+/* 📱 Mobile Menu Toggle */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2.5rem;
+    padding: 10px;
+  }
+
+  .navbar {
+    padding: 10px 20px;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: var(--secondary-color);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1050;
+    width: 80%;
+    max-width: 350px;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links a {
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Hover effect for links in mobile toggle mode */
+  .nav-links a:hover {
+    background-color: var(--accent-color); /* Golden hover background */
+    color: var(--primary-color); /* Dark text color for contrast */
+  }
 }
 
 /* 📜 List Items */
@@ -100,33 +170,4 @@ ul li {
 ul li:hover {
   background: var(--hover-color);
   transform: scale(1.05);
-}
-
-/* 📌 Footer */
-.footer {
-  background: var(--secondary-color);
-  color: var(--text-color);
-  text-align: center;
-  padding: 15px;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  font-size: 0.9rem;
-}
-
-/* 📱 Responsive Design */
-@media (max-width: 768px) {
-  .container {
-    width: 90%;
-    padding: 20px;
-  }
-
-  .navbar {
-    flex-direction: column;
-  }
-
-  .navbar a {
-    display: block;
-    margin: 5px 0;
-  }
 }
