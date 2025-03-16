@@ -1,5 +1,3 @@
-/* src/styles/global.css */
-
 /* 🎨 Color Palette */
 :root {
   --primary-color: #121212;  /* Deep Black */
@@ -43,6 +41,8 @@ h1 {
   color: var(--accent-color);
   text-transform: uppercase;
   letter-spacing: 2px;
+  margin: 0;
+  padding-left: 10px;
 }
 
 /* 🔗 Links */
@@ -60,20 +60,23 @@ a:hover {
 /* 🔥 Navbar */
 .navbar {
   background: var(--secondary-color);
-  padding: 15px 20px;
+  padding: 30px 40px; /* Increased padding for a larger navbar */
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Spacing between elements */
   align-items: center;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
   position: relative; /* Ensures absolute children position relative to navbar */
   z-index: 1000; /* Keeps navbar above other elements */
   width: 100%;
+  height: 100px; /* Fixed height to make navbar larger */
 }
 
 .navbar h1 {
-  font-size: 3vw; /* Adjust for smaller screens */
+  font-size: 2.5rem; /* Set a more appropriate font size for the navbar title */
   margin: 0;
-  padding-left: 10px; /* Add some padding to avoid it being too close to the left edge */
+  padding-left: 10px;
+  flex-grow: 1; /* Makes the h1 take a large portion of the navbar width */
+  text-align: left; /* Ensures the title aligns left */
 }
 
 .menu-toggle {
@@ -90,9 +93,9 @@ a:hover {
 /* 📱 Desktop Menu */
 .nav-links {
   display: flex;
-  justify-content: space-around; /* Adds space between the links */
+  justify-content: space-between; /* Ensure the menu items are spaced apart */
   align-items: center;
-  width: 100%; /* Ensures the links take up the full width of the navbar */
+  width: auto; /* Allows the menu to shrink to the size of its content */
 }
 
 .nav-links a {
@@ -118,7 +121,7 @@ a:hover {
   }
 
   .navbar {
-    padding: 10px 20px;
+    padding: 15px 20px;
   }
 
   .nav-links {
