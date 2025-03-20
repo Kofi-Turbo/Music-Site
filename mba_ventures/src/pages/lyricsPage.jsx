@@ -10,6 +10,7 @@ function LyricsPage() {
   const [editingId, setEditingId] = useState(null);
   const [updatedLyrics, setUpdatedLyrics] = useState("");
   const [updatedAuthor, setUpdatedAuthor] = useState("");
+  const [searchTerm, setSearchTerm] = useState(""); // New state for search term
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,6 +60,12 @@ function LyricsPage() {
     }
   };
 
+  // Filter lyrics based on search term
+  const filteredLyrics = lyrics.filter((entry) =>
+    entry.author.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    entry.lyrics.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="container">
       <h1>Lyrics Page</h1>
@@ -66,9 +73,18 @@ function LyricsPage() {
         Add New Lyrics
       </button>
 
+      {/* Search Bar */}
+      <input
+        type="text"
+        placeholder="Search by author or lyrics"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="search-input"
+      />
+
       <div>
         <h2>Posted Lyrics</h2>
-        {lyrics.map((entry) => (
+        {filteredLyrics.map((entry) => (
           <div key={entry.id} className="lyrics-card">
             {editingId === entry.id ? (
               <>
