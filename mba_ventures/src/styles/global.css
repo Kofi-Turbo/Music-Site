@@ -1,10 +1,9 @@
 /* 🎨 Color Palette */
 :root {
-  --primary-color: #121212;  /* Deep Black */
-  --secondary-color: #1f1f1f; /* Dark Steel */
-  --accent-color: #d4af37; /* Gold */
-  --text-color: #e0e0e0; /* Soft Silver */
-  --hover-color: #c0a000; /* Lighter Gold */
+  --primary-color: #eaf9ff; /* Light Blue Background */
+  --secondary-color: #a7d6e9; /* Vibrant Blue Containers */
+  --accent-color: #000000; /* Black Text */
+  --hover-color: #2da6e6; /* Slightly Darker Blue for Hover Effects */
   --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.2);
 }
