@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/lyricsPage.css";
 
-const API_BASE_URL = "http://localhost:5001";
+const API_BASE_URL = "https://mba-ventures-api.onrender.com";
 
 function AddLyricsPage() {
   const [newLyrics, setNewLyrics] = useState("");
