@@ -1,113 +1,180 @@
-.container {
-  max-width: 600px;
-  margin: auto;
-  padding: 20px;
-  text-align: center;
-  font-family: Arial, sans-serif;
-  background-color: #3fc7ff; /* Updated background color */
-  border-radius: 10px;
+/* 🎨 General Page Styling */
+.lyrics-page {
+  background-color: var(--primary-color);
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
 }
 
-.post-button, .edit-button, .delete-button, .save-button, .cancel-button {
-  padding: 12px 15px;
-  border: none;
-  cursor: pointer;
-  margin: 8px;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: bold;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.post-button {
-  background-color: #a7d6e9; /* Deeper Blue */
-  color: white;
-}
-
-.post-button:hover {
-  background-color: #4cc0ee;
-  transform: scale(1.05);
-}
-
-.cancel-button {
-  background-color: #cb8e8e; /* Bright Red */
-  color: white;
-}
-
-.cancel-button:hover {
-  background-color: #f56060;
-  transform: scale(1.05);
-}
-
-.edit-button {
-  background-color: #a7d6e9;
-  color: black;
-}
-
-.delete-button {
-  background-color: #cb8e8e;
-  color: white;
-}
-
-.save-button {
-  background-color: #a7d6e9;
-  color: white;
-}
-
-.save-button:hover {
-  background-color: #61bbde;
-  transform: scale(1.05);
-}
-
-/* 📝 Form Container */
-.form-container {
-  border: 1px solid #ccc;
-  padding: 20px;
-  border-radius: 8px;
-  background: #eaf9ff; /* Updated to match platform background */
-  margin-bottom: 20px;
-}
-
-/* 🖊️ Input Fields */
-input, textarea {
+/* 🔍 Search Bar */
+.search-bar-container {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #aaa;
-  border-radius: 5px;
-  font-size: 16px;
-  box-sizing: border-box; /* Prevents width overflow */
-  background: white;
-  color: black;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px; /* Space below search bar */
 }
 
-textarea {
-  resize: vertical; /* Allows vertical resizing */
-  min-height: 100px; /* Ensures it doesn’t collapse */
-  max-width: 100%; /* Prevents it from overflowing */
-}
-
-/* 🎶 Lyrics Cards */
-.lyrics-card {
-  background: #ffffff;
-  padding: 15px;
+.search-bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   border-radius: 8px;
-  margin-bottom: 25px;
-  text-align: left;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-left: 5px solid #0077cc;
-  white-space: pre-wrap; /* ✅ Keeps line breaks and formatting */
-  word-wrap: break-word; /* Ensures long words do not overflow */
-  font-size: 16px;
-  line-height: 1.5; /* Improves readability */
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.lyrics-card:not(:last-child) {
-  margin-bottom: 100px;
+.search-bar input {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  background: transparent;
+  color: var(--accent-color);
 }
 
-/* ⚠️ Error Messages */
-.error-message {
-  color: red;
-  font-weight: bold;
-  margin-bottom: 10px;
+.search-bar button {
+  background: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 12px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 10px;
+  transition: background 0.3s ease;
+}
+
+.search-bar button:hover {
+  background: var(--hover-color);
+}
+
+/* 🎼 Lyrics List */
+.lyrics-list {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* ✅ Ensures proper spacing between lyrics cards */
+  padding: 0; /* Removes default padding */
+  list-style: none;
+}
+
+/* 🎶 Individual Lyrics Card */
+.lyrics-card {
+  background: var(--secondary-color);
+  color: var(--text-color);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.lyrics-card:hover {
+  background: var(--hover-color);
+  transform: scale(1.02);
+}
+
+/* 🎤 Lyrics Title */
+.lyrics-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.6rem;
+  color: var(--accent-color);
+}
+
+/* 📝 Lyrics Content */
+.lyrics-card p {
+  margin-top: 12px;
+  font-size: 1rem;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* 🎯 Interaction Buttons */
+.lyrics-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.like-button,
+.dislike-button {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--accent-color);
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.like-button:hover {
+  background: var(--secondary-color);
+  color: white;
+}
+
+.dislike-button:hover {
+  background: var(--hover-color);
+  color: white;
+}
+
+/* 🏷️ Tags */
+.lyrics-tags {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lyrics-tags span {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: var(--accent-color);
+}
+
+/* 🦶 Footer */
+.footer {
+  color: var(--text-color);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 1rem;
+  width: 100%;
+  bottom: 0;
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+  .lyrics-page {
+    padding: 20px;
+  }
+
+  .search-bar-container {
+    width: 90%;
+  }
+
+  .lyrics-card {
+    padding: 15px;
+  }
+
+  .lyrics-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .lyrics-card p {
+    font-size: 0.9rem;
+  }
+
+  .lyrics-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
 }
