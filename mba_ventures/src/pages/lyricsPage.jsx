@@ -7,10 +7,9 @@ const API_BASE_URL = "https://mba-ventures-api.onrender.com";
 
 function LyricsPage() {
   const [lyrics, setLyrics] = useState([]);
-  const [editingId, setEditingId] = useState(null);
-  const [updatedLyrics, setUpdatedLyrics] = useState("");
-  const [updatedAuthor, setUpdatedAuthor] = useState("");
-  const [searchTerm, setSearchTerm] = useState(""); // New state for search term
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingLyrics, setEditingLyrics] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,33 +35,32 @@ function LyricsPage() {
   };
 
   const startEditing = (entry) => {
-    setEditingId(entry.id);
-    setUpdatedLyrics(entry.lyrics);
-    setUpdatedAuthor(entry.author);
+    setEditingLyrics(entry);
+    setIsEditing(true);
   };
 
-  const saveUpdatedLyrics = async (id) => {
+  const saveUpdatedLyrics = async () => {
+    if (!editingLyrics.author.trim() || !editingLyrics.lyrics.trim()) return;
+
     try {
-      await axios.put(`${API_BASE_URL}/lyrics/${id}`, {
-        author: updatedAuthor,
-        lyrics: updatedLyrics,
+      await axios.put(`${API_BASE_URL}/lyrics/${editingLyrics.id}`, {
+        author: editingLyrics.author,
+        lyrics: editingLyrics.lyrics,
       });
 
-      setLyrics(
-        lyrics.map((entry) =>
-          entry.id === id ? { ...entry, author: updatedAuthor, lyrics: updatedLyrics } : entry
-        )
-      );
+      setLyrics(lyrics.map((entry) =>
+        entry.id === editingLyrics.id ? editingLyrics : entry
+      ));
 
-      setEditingId(null);
+      setIsEditing(false);
+      setEditingLyrics(null);
     } catch (error) {
       console.error("Error updating lyrics:", error);
     }
   };
 
-  // Filter lyrics based on search term
   const filteredLyrics = lyrics.filter((entry) =>
-    entry.author.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    entry.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
     entry.lyrics.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -73,7 +71,6 @@ function LyricsPage() {
         Add New Lyrics
       </button>
 
-      {/* Search Bar */}
       <input
         type="text"
         placeholder="Search by author or lyrics"
@@ -82,49 +79,45 @@ function LyricsPage() {
         className="search-input"
       />
 
-      <div>
-        <h2>Posted Lyrics</h2>
-        {filteredLyrics.map((entry) => (
-          <div key={entry.id} className="lyrics-card">
-            {editingId === entry.id ? (
-              <>
-                <input
-                  type="text"
-                  value={updatedAuthor}
-                  onChange={(e) => setUpdatedAuthor(e.target.value)}
-                />
-                <textarea
-                  value={updatedLyrics}
-                  onChange={(e) => setUpdatedLyrics(e.target.value)}
-                />
-                <button className="save-button" onClick={() => saveUpdatedLyrics(entry.id)}>
-                  Save
-                </button>
-                <button className="cancel-button" onClick={() => setEditingId(null)}>
-                  Cancel
-                </button>
-              </>
-            ) : (
-              <>
-                <h3>{entry.author}</h3>
-                <p className="lyrics-text">{entry.lyrics.split('\n').map((line, index) => (
+      {isEditing ? (
+        <div className="form-container">
+          <h1>Edit Lyrics</h1>
+          <input
+            type="text"
+            placeholder="Author Name"
+            value={editingLyrics.author}
+            onChange={(e) => setEditingLyrics({ ...editingLyrics, author: e.target.value })}
+            required
+          />
+          <textarea
+            placeholder="Edit lyrics..."
+            value={editingLyrics.lyrics}
+            onChange={(e) => setEditingLyrics({ ...editingLyrics, lyrics: e.target.value })}
+            required
+          ></textarea>
+          <button className="post-button" onClick={saveUpdatedLyrics}>Save Changes</button>
+          <button className="cancel-button" onClick={() => setIsEditing(false)}>Cancel</button>
+        </div>
+      ) : (
+        <div>
+          <h2>Posted Lyrics</h2>
+          {filteredLyrics.map((entry) => (
+            <div key={entry.id} className="lyrics-card">
+              <h3>{entry.author}</h3>
+              <p className="lyrics-text">
+                {entry.lyrics.split("\n").map((line, index) => (
                   <span key={index}>
                     {line}
                     <br />
                   </span>
                 ))}
-                </p>
-                <button className="edit-button" onClick={() => startEditing(entry)}>
-                  Edit
-                </button>
-                <button className="delete-button" onClick={() => deleteLyrics(entry.id)}>
-                  Delete
-                </button>
-              </>
-            )}
-          </div>
-        ))}
-      </div>
+              </p>
+              <button className="edit-button" onClick={() => startEditing(entry)}>Edit</button>
+              <button className="delete-button" onClick={() => deleteLyrics(entry.id)}>Delete</button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
